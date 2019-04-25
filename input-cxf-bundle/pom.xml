@@ -21,6 +21,11 @@
       <artifactId>camel-core</artifactId>
       <version>${camel.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.servicemix.examples</groupId>
+      <artifactId>camel-cxf-rest-service</artifactId>
+      <version>7.0.1</version>
+    </dependency>
   </dependencies>
   <build>
     <defaultGoal>install</defaultGoal>
