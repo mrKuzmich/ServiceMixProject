@@ -12,9 +12,6 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Apache ServiceMix :: Camel OSGi Bundle</name>
-  <properties>
-    <camel.version>2.10.3</camel.version>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -24,7 +21,12 @@
     <dependency>
       <groupId>org.apache.servicemix.examples</groupId>
       <artifactId>camel-cxf-rest-service</artifactId>
-      <version>7.0.1</version>
+      <version>${servicemix.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
+      <version>${activemq.version}</version>
     </dependency>
   </dependencies>
   <build>
