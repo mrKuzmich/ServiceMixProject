@@ -30,5 +30,6 @@
 
   <modules>
     <module>input-cxf-bundle</module>
+    <module>calc-bundle</module>
   </modules>
 </project>
