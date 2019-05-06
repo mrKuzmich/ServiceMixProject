@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package my.test;
+package my.test.calc_bundle;
 
-import my.test.calculator.FactorialCalculator;
-import my.test.calculator.FactorialCalculatorImpl;
+import my.test.calc_bundle.calculator.FactorialCalculator;
+import my.test.calc_bundle.calculator.FactorialCalculatorImpl;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 

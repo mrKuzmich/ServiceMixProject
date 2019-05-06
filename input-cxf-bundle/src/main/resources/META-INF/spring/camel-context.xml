@@ -15,6 +15,6 @@
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
-    <bean id="factorialService" class="my.test.FactorialService"/>
+    <bean id="factorialService" class="my.test.input_cxf_bundle.FactorialService"/>
 
 </beans>

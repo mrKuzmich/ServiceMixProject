@@ -1,6 +1,6 @@
-package my.test;
+package my.test.input_cxf_bundle;
 
-import my.test.calculator.FactorialCalculator;
+import my.test.calc_bundle.calculator.FactorialCalculator;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

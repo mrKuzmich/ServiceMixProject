@@ -1,4 +1,4 @@
-package my.test.calculator;
+package my.test.calc_bundle.calculator;
 
 import java.math.BigInteger;
 

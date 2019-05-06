@@ -40,6 +40,18 @@
             <version>${osgi.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.logging</groupId>
+            <artifactId>pax-logging-service</artifactId>
+            <version>1.8.5</version>
+        </dependency>
+<!--
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.0.Final</version>
+        </dependency>
+-->
     </dependencies>
     <build>
         <defaultGoal>install</defaultGoal>
@@ -53,8 +65,9 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Import-Package>*,my.test.calculator,org.apache.camel.osgi</Import-Package>
-                        <Private-Package>my.test</Private-Package>
+                        <Bundle-Activator>my.test.input_cxf_bundle.Activator</Bundle-Activator>
+                        <Import-Package>*,my.test.calc_bundle.calculator,org.osgi.service.log,org.apache.camel.osgi</Import-Package>
+                        <Private-Package>my.test.input_cxf_bundle</Private-Package>
                     </instructions>
                 </configuration>
             </plugin>
