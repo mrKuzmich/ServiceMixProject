@@ -12,7 +12,8 @@
     <artifactId>input-cxf-bundle</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Apache ServiceMix :: Camel OSGi Bundle</name>
+    <name>input-cxf-bundle</name>
+    <description>CXF test REST service to calculate factorial</description>
     <dependencies>
         <dependency>
             <groupId>my.test</groupId>
