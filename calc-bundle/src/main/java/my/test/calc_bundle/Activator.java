@@ -24,12 +24,12 @@ import org.osgi.framework.BundleContext;
 public class Activator implements BundleActivator {
 
     public void start(BundleContext context) {
-        System.out.println("Starting the bundle");
-        context.registerService(FactorialCalculator.class, new FactorialCalculatorImpl(), null);
+//        System.out.println("Starting the bundle");
+//        context.registerService(FactorialCalculator.class, new FactorialCalculatorImpl(), null);
     }
 
     public void stop(BundleContext context) {
-        System.out.println("Stopping the bundle");
+//        System.out.println("Stopping the bundle");
     }
 
 }
