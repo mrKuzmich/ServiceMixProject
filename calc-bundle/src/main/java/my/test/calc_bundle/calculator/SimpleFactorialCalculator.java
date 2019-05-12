@@ -2,7 +2,7 @@ package my.test.calc_bundle.calculator;
 
 import java.math.BigInteger;
 
-public class FactorialCalculatorImpl implements FactorialCalculator {
+public class SimpleFactorialCalculator implements FactorialCalculator {
 
     @Override
     public BigInteger apply(Integer n) {
