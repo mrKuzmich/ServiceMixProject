@@ -46,6 +46,10 @@
         <property name="configuration" ref="jmsConfig"/>
     </bean>
 
-    <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations"/>
+    <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
+        <constructor-arg>
+            <bean class="my.test.calc_bundle.calculator.CachedFactorialCalculator"/>
+        </constructor-arg>
+    </bean>
 
 </beans>
