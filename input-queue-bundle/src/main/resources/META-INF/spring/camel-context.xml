@@ -3,13 +3,18 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       ">
+
+    <context:property-placeholder location="classpath:input.queue.bundle.properties"/>
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <!-- TODO get destination from property ??? -->
         <route>
             <from uri="activemq:queue:inputQueue"/>
             <bean ref="maths_operations" method="Factorial"/>
@@ -17,14 +22,28 @@ http://www.springframework.org/schema/beans
         </route>
     </camelContext>
 
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${jms.brokerURL}"/>
+        <property name="userName" value="${jms.user}"/>
+        <property name="password" value="${jms.password}"/>
+    </bean>
+
+    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start"
+          destroy-method="stop">
+        <property name="maxConnections" value="8"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+    </bean>
+
+    <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+        <property name="connectionFactory" ref="pooledConnectionFactory"/>
+        <property name="concurrentConsumers" value="10"/>
+        <property name="deliveryPersistent" value="false"/>
+        <property name="deliveryMode" value="1"/>
+        <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
+    </bean>
+
     <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-        <property name="connectionFactory">
-            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="vm://localhost?broker.persistent=false&amp;broker.useJmx=false"/>
-                <property name="userName" value="smx"/>
-                <property name="password" value="smx"/>
-            </bean>
-        </property>
+        <property name="configuration" ref="jmsConfig"/>
     </bean>
 
     <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations"/>
