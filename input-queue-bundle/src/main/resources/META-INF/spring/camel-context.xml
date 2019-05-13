@@ -30,7 +30,7 @@
 
   <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start"
         destroy-method="stop">
-    <property name="maxConnections" value="3"/>
+    <property name="maxConnections" value="5"/>
     <property name="connectionFactory" ref="jmsConnectionFactory"/>
   </bean>
 
