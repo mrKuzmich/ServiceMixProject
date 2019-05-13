@@ -21,18 +21,17 @@ public class FactorialService {
   @GET
   @Path("/getFactorial/{n}")
   public Response getFactorial(@PathParam("n") String strN) { // todo javax.validation
-    Connection connection = null;
     try {
-      LOGGER.debug(String.format("Request: getFactorial(%s)", strN));
+      LOGGER.info(String.format("Request: getFactorial(%s)", strN));
         String msgLabel = sendRequestToQueue(strN);
         final String result = getResponseFromQueue(msgLabel);
         final String response = String.format("%s! = %s", strN, result);
-        LOGGER.debug("Response: " + response);
+      LOGGER.info("Response: " + response);
         return Response.ok(response).build();
     } catch (Exception e) {
       final String errorMsg = String.format("getFactorial error: %s: %s",
               e.getClass().getCanonicalName(), e.getMessage());
-      LOGGER.debug("Error: " + errorMsg);
+      LOGGER.info("Error: " + errorMsg);
       return Response
               .status(Response.Status.BAD_REQUEST)
               .entity(errorMsg)
