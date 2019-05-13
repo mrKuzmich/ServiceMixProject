@@ -1,0 +1,18 @@
+Тестовый проект для платформы Apache ServiceMix.
+
+Три модуля (bundle):
+1. input-cxf-bundle - реализует Rest - endpoint с http методом getFactorial типа GET с одним входным параметром
+   типа Integer. Полученный параметр посылается в очередь inputQueue брокера ActiveMQ. Результат вычисления получается
+   из очереди outputQueue и возвращается в виде строки.
+
+2. input-queue-bundle - получает сообщение из очереди inputQueue, вызвать метод расчета факториала из модуля
+   calc-bundle и отправляет полученное значение в очередь outputQueue.
+
+3. calc-bundle - реализует класс для расчета факториала.
+
+Сборка проекта при помощи Apache Maven:
+
+> mvn package
+
+Собранные bundles находятся в distribution-module/target/
+
