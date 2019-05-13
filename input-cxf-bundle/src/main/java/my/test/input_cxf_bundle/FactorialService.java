@@ -25,9 +25,8 @@ public class FactorialService {
       LOGGER.info(String.format("Request: getFactorial(%s)", strN));
         String msgLabel = sendRequestToQueue(strN);
         final String result = getResponseFromQueue(msgLabel);
-        final String response = String.format("%s! = %s", strN, result);
-      LOGGER.info("Response: " + response);
-        return Response.ok(response).build();
+      LOGGER.info(String.format("Response: %s! = %s", strN, result));
+      return Response.ok(result).build();
     } catch (Exception e) {
       final String errorMsg = String.format("getFactorial error: %s: %s",
               e.getClass().getCanonicalName(), e.getMessage());
