@@ -1,6 +1,7 @@
 Тестовый проект для платформы Apache ServiceMix.
 
 Три модуля (bundle):
+
 1. input-cxf-bundle - реализует Rest - endpoint с http методом getFactorial типа GET с одним входным параметром
    типа Integer. Полученный параметр посылается в очередь inputQueue брокера ActiveMQ. Результат вычисления получается
    из очереди outputQueue и возвращается в виде строки.
