@@ -10,35 +10,35 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
        ">
 
-    <context:property-placeholder location="classpath:input.cxf.bundle.properties"/>
+  <context:property-placeholder location="classpath:input.cxf.bundle.properties"/>
 
-    <jaxrs:server id="factorialServiceEndpoint" address="/service/">
-        <jaxrs:serviceBeans>
-            <ref bean="factorialService"/>
-        </jaxrs:serviceBeans>
-    </jaxrs:server>
+  <jaxrs:server id="factorialServiceEndpoint" address="/service/">
+    <jaxrs:serviceBeans>
+      <ref bean="factorialService"/>
+    </jaxrs:serviceBeans>
+  </jaxrs:server>
 
-    <bean id="factorialService" class="my.test.input_cxf_bundle.FactorialService">
-        <property name="sendJmsTemplate" ref="sendJmsTemplate"/>
-        <property name="receiveJmsTemplate" ref="receiveJmsTemplate"/>
-    </bean>
+  <bean id="factorialService" class="my.test.input_cxf_bundle.FactorialService">
+    <property name="sendJmsTemplate" ref="sendJmsTemplate"/>
+    <property name="receiveJmsTemplate" ref="receiveJmsTemplate"/>
+  </bean>
 
-    <bean id="sendJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <constructor-arg ref="connectionFactory"/>
-        <property name="defaultDestinationName" value="${jms.sendDestination}"/>
-        <property name="deliveryPersistent" value="false"/>
-    </bean>
+  <bean id="sendJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <constructor-arg ref="connectionFactory"/>
+    <property name="defaultDestinationName" value="${jms.sendDestination}"/>
+    <property name="deliveryPersistent" value="false"/>
+  </bean>
 
-    <bean id="receiveJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <constructor-arg ref="connectionFactory"/>
-        <property name="defaultDestinationName" value="${jms.receiveDestination}"/>
-        <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
-    </bean>
+  <bean id="receiveJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <constructor-arg ref="connectionFactory"/>
+    <property name="defaultDestinationName" value="${jms.receiveDestination}"/>
+    <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
+  </bean>
 
-    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="${jms.brokerURL}"/>
-        <property name="userName" value="${jms.user}"/>
-        <property name="password" value="${jms.password}"/>
-    </bean>
+  <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="${jms.brokerURL}"/>
+    <property name="userName" value="${jms.user}"/>
+    <property name="password" value="${jms.password}"/>
+  </bean>
 
 </beans>

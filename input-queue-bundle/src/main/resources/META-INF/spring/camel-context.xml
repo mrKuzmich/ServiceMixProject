@@ -11,45 +11,45 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
        ">
 
-    <context:property-placeholder location="classpath:input.queue.bundle.properties"/>
+  <context:property-placeholder location="classpath:input.queue.bundle.properties"/>
 
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-        <!-- TODO get destination from property ??? -->
-        <route>
-            <from uri="activemq:queue:inputQueue"/>
-            <bean ref="maths_operations" method="Factorial"/>
-            <to uri="activemq:queue:outputQueue"/>
-        </route>
-    </camelContext>
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <!-- TODO get destination from property ??? -->
+    <route>
+      <from uri="activemq:queue:inputQueue"/>
+      <bean ref="maths_operations" method="Factorial"/>
+      <to uri="activemq:queue:outputQueue"/>
+    </route>
+  </camelContext>
 
-    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="${jms.brokerURL}"/>
-        <property name="userName" value="${jms.user}"/>
-        <property name="password" value="${jms.password}"/>
-    </bean>
+  <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="${jms.brokerURL}"/>
+    <property name="userName" value="${jms.user}"/>
+    <property name="password" value="${jms.password}"/>
+  </bean>
 
-    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start"
-          destroy-method="stop">
-        <property name="maxConnections" value="8"/>
-        <property name="connectionFactory" ref="jmsConnectionFactory"/>
-    </bean>
+  <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start"
+        destroy-method="stop">
+    <property name="maxConnections" value="8"/>
+    <property name="connectionFactory" ref="jmsConnectionFactory"/>
+  </bean>
 
-    <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
-        <property name="connectionFactory" ref="pooledConnectionFactory"/>
-        <property name="concurrentConsumers" value="10"/>
-        <property name="deliveryPersistent" value="false"/>
-        <property name="deliveryMode" value="1"/>
-        <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
-    </bean>
+  <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+    <property name="connectionFactory" ref="pooledConnectionFactory"/>
+    <property name="concurrentConsumers" value="10"/>
+    <property name="deliveryPersistent" value="false"/>
+    <property name="deliveryMode" value="1"/>
+    <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
+  </bean>
 
-    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-        <property name="configuration" ref="jmsConfig"/>
-    </bean>
+  <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+    <property name="configuration" ref="jmsConfig"/>
+  </bean>
 
-    <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
-        <constructor-arg>
-            <bean class="my.test.calc_bundle.calculator.CachedFactorialCalculator"/>
-        </constructor-arg>
-    </bean>
+  <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
+    <constructor-arg>
+      <bean class="my.test.calc_bundle.calculator.CachedFactorialCalculator"/>
+    </constructor-arg>
+  </bean>
 
 </beans>

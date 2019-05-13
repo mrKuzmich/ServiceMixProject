@@ -17,6 +17,7 @@ public class FactorialService {
   private JmsTemplate sendJmsTemplate;
   private JmsTemplate receiveJmsTemplate;
 
+  // todo multithreading
   @GET
   @Path("/getFactorial/{n}")
   public Response getFactorial(@PathParam("n") String strN) { // todo javax.validation
