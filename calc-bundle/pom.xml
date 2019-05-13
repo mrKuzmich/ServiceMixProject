@@ -7,11 +7,11 @@
   <parent>
     <artifactId>ServiceMixProject</artifactId>
     <groupId>my.test</groupId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <artifactId>calc-bundle</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>bundle</packaging>
 
   <name>calc-bundle Bundle</name>

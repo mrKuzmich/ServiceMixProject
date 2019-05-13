@@ -7,25 +7,20 @@
   <parent>
     <artifactId>ServiceMixProject</artifactId>
     <groupId>my.test</groupId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <artifactId>input-queue-bundle</artifactId>
   <packaging>bundle</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0</version>
 
   <name>input-queue-bundle</name>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
 
   <dependencies>
     <dependency>
       <groupId>my.test</groupId>
       <artifactId>calc-bundle</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
