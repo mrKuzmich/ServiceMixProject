@@ -44,6 +44,11 @@
       <version>3.2.18.RELEASE_1</version>
     </dependency>
     <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-camel</artifactId>
+      <version>${activemq.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.ops4j.pax.logging</groupId>
       <artifactId>pax-logging-service</artifactId>
       <version>1.8.5</version>

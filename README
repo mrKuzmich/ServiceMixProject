@@ -17,3 +17,5 @@
 
 Собранные bundles находятся в distribution-module/target/
 
+URL сервиса:
+http://servicemix_host:8181/cxf/service/maths/getFactorial/{n}
