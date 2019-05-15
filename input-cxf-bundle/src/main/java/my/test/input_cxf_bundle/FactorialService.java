@@ -1,7 +1,5 @@
 package my.test.input_cxf_bundle;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 import javax.jms.*;
@@ -9,10 +7,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import java.util.logging.Logger;
 
 @Path("/maths/")
 public class FactorialService {
-  private Log LOGGER = LogFactory.getLog(FactorialService.class);
+  private Logger LOGGER = Logger.getLogger(FactorialService.class.getName());
 
   private JmsTemplate sendJmsTemplate;
   private JmsTemplate receiveJmsTemplate;

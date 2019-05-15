@@ -18,19 +18,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-core</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.servicemix.examples</groupId>
-      <artifactId>camel-cxf-rest-service</artifactId>
-      <version>${servicemix.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-client</artifactId>
-      <version>${activemq.version}</version>
+      <groupId>org.apache.servicemix.specs</groupId>
+      <artifactId>org.apache.servicemix.specs.jsr339-api-2.0</artifactId>
+      <version>2.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
@@ -49,24 +39,13 @@
       <version>${activemq.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.ops4j.pax.logging</groupId>
-      <artifactId>pax-logging-service</artifactId>
-      <version>1.8.5</version>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      <version>${cxf.version}</version>
     </dependency>
   </dependencies>
   <build>
     <defaultGoal>package</defaultGoal>
-    <resources>
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -76,7 +55,7 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Import-Package>*,my.test.input_queue_bundle,org.osgi.service.log,org.apache.camel.osgi</Import-Package>
+            <Import-Package>*,my.test.input_queue_bundle,org.apache.camel.osgi</Import-Package>
             <Private-Package>my.test.input_cxf_bundle</Private-Package>
           </instructions>
         </configuration>

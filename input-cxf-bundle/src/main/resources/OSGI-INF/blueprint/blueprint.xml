@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+           http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd">
+
+
+  <cm:property-placeholder persistent-id="my.test.input_cxf_bundle" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="jms.user" value="smx"/>
+      <cm:property name="jms.password" value="smx"/>
+      <cm:property name="jms.brokerURL" value="vm://localhost"/>
+      <cm:property name="jms.sendDestination" value="inputQueue"/>
+      <cm:property name="jms.receiveDestination" value="outputQueue"/>
+      <cm:property name="jms.receiveTimeout" value="1000"/>
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+  <jaxrs:server id="factorialServiceEndpoint" address="/service/">
+    <jaxrs:serviceFactories>
+      <ref component-id="serviceFactory"/>
+    </jaxrs:serviceFactories>
+  </jaxrs:server>
+
+  <bean id="serviceFactory" class="org.apache.cxf.jaxrs.blueprint.BlueprintResourceFactory">
+    <argument value="factorialService"/>
+  </bean>
+
+  <bean id="factorialService" class="my.test.input_cxf_bundle.FactorialService" scope="prototype">
+    <property name="sendJmsTemplate" ref="sendJmsTemplate"/>
+    <property name="receiveJmsTemplate" ref="receiveJmsTemplate"/>
+  </bean>
+
+  <bean id="sendJmsTemplate" class="org.springframework.jms.core.JmsTemplate" scope="prototype">
+    <argument ref="pooledConnectionFactory"/>
+    <property name="defaultDestinationName" value="${jms.sendDestination}"/>
+    <property name="deliveryPersistent" value="false"/>
+  </bean>
+
+  <bean id="receiveJmsTemplate" class="org.springframework.jms.core.JmsTemplate" scope="prototype">
+    <argument ref="pooledConnectionFactory"/>
+    <property name="defaultDestinationName" value="${jms.receiveDestination}"/>
+    <property name="receiveTimeout" value="${jms.receiveTimeout}"/>
+  </bean>
+
+  <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="${jms.brokerURL}"/>
+    <property name="userName" value="${jms.user}"/>
+    <property name="password" value="${jms.password}"/>
+  </bean>
+
+  <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start"
+        destroy-method="stop">
+    <property name="maxConnections" value="5"/>
+    <property name="connectionFactory" ref="jmsConnectionFactory"/>
+  </bean>
+
+
+</blueprint>
