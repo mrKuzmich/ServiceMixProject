@@ -8,16 +8,11 @@ import java.util.logging.Logger;
 public class MathsOperations {
   private Logger LOGGER = Logger.getLogger(MathsOperations.class.getName());
 
-  private final FactorialCalculator calculator;
-
-  public MathsOperations(FactorialCalculator calculator) {
-    this.calculator = calculator;
-  }
-
   public Object Factorial(Object request) {
     try {
       LOGGER.info("Incoming request: " + request.toString());
-      Integer n = Integer.valueOf(Objects.requireNonNull(request, "Empty request").toString());
+      final FactorialCalculator calculator = FactorialCalculatorFactory.getInstance();
+      final Integer n = Integer.valueOf(Objects.requireNonNull(request, "Empty request").toString());
       final String response = calculator.apply(n).toString();
       LOGGER.info("Outgoing response: " + response);
       return response;

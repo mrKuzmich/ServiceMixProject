@@ -27,6 +27,12 @@
       <artifactId>activemq-camel</artifactId>
       <version>${activemq.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>${osgi.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -41,7 +47,8 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Version>${project.version}</Bundle-Version>
-            <Import-Package>*,org.apache.camel.osgi</Import-Package>
+            <Bundle-Activator>my.test.input_queue_bundle.FactorialCalculatorFactory</Bundle-Activator>
+            <Import-Package>*</Import-Package>
             <Private-Package>my.test.input_queue_bundle</Private-Package>
           </instructions>
         </configuration>

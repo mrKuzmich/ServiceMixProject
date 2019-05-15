@@ -16,18 +16,23 @@
  */
 package my.test.calc_bundle;
 
+import my.test.calc_bundle.calculator.FactorialCalculator;
+import my.test.calc_bundle.calculator.SimpleFactorialCalculator;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
 
-    public void start(BundleContext context) {
-//        System.out.println("Starting the bundle");
-//        context.registerService(FactorialCalculator.class, new SimpleFactorialCalculator(), null);
-    }
+  private ServiceRegistration serviceRegistration;
 
-    public void stop(BundleContext context) {
-//        System.out.println("Stopping the bundle");
-    }
+  public void start(BundleContext context) {
+    serviceRegistration = context.registerService(FactorialCalculator.class.getName(), new SimpleFactorialCalculator(), null);
+  }
+
+  public void stop(BundleContext context) {
+    if (serviceRegistration != null)
+      serviceRegistration.unregister();
+  }
 
 }

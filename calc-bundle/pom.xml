@@ -50,9 +50,9 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Version>${project.version}</Bundle-Version>
-            <!--                        <Bundle-Activator>my.test.calc_bundle.Activator</Bundle-Activator> -->
+            <Bundle-Activator>my.test.calc_bundle.Activator</Bundle-Activator>
             <Export-Package>my.test.calc_bundle.calculator;version=${project.version}</Export-Package>
-            <Import-Package>org.osgi.framework;version=1.6.0</Import-Package>
+            <Import-Package>*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

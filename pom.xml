@@ -14,7 +14,7 @@
 
   <properties>
     <maven-bundle-plugin.version>3.3.0</maven-bundle-plugin.version>
-    <osgi.version>6.0.0</osgi.version>
+    <osgi.version>4.2.0</osgi.version>
     <servicemix.version>6.1.4</servicemix.version>
     <camel.version>2.16.5</camel.version>
     <karaf.version>3.0.8</karaf.version>
