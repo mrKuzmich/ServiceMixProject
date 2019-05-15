@@ -48,10 +48,14 @@
     <property name="configuration" ref="jmsConfig"/>
   </bean>
 
+
+  <reference id="calculatorService" interface="my.test.calc_bundle.calculator.FactorialCalculator" timeout="10000"/>
+
   <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
-    <argument>
+    <property name="calculator" ref="calculatorService"/>
+<!--
       <bean class="my.test.calc_bundle.calculator.CachedFactorialCalculator"/>
-    </argument>
+-->
   </bean>
 
 </blueprint>

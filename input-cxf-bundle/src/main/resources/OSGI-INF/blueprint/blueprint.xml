@@ -25,7 +25,7 @@
   </jaxrs:server>
 
   <bean id="serviceFactory" class="org.apache.cxf.jaxrs.blueprint.BlueprintResourceFactory">
-    <argument value="factorialService"/>
+    <property name="beanId" value="factorialService"/>
     <property name="blueprintContainer" ref="blueprintContainer"/> <!-- Ё%$&*%*(^&)^&*() -->
   </bean>
 

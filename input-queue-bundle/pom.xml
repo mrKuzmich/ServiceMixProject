@@ -18,6 +18,12 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>${osgi.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>my.test</groupId>
       <artifactId>calc-bundle</artifactId>
       <version>${project.version}</version>
