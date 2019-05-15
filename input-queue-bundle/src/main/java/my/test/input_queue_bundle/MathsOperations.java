@@ -1,13 +1,12 @@
 package my.test.input_queue_bundle;
 
 import my.test.calc_bundle.calculator.FactorialCalculator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class MathsOperations {
-  private Log LOGGER = LogFactory.getLog(MathsOperations.class);
+  private Logger LOGGER = Logger.getLogger(MathsOperations.class.getName());
 
   private final FactorialCalculator calculator;
 

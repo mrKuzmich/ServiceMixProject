@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Configures the Camel Context-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-       ">
 
-  <context:property-placeholder location="classpath:input.queue.bundle.properties"/>
+  <cm:property-placeholder persistent-id="my.test.input_queue_bundle" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="jms.user" value="smx"/>
+      <cm:property name="jms.password" value="smx"/>
+      <cm:property name="jms.brokerURL" value="vm://localhost"/>
+      <cm:property name="jms.inputDestination" value="inputQueue"/>
+      <cm:property name="jms.outputDestination" value="outputQueue"/>
+      <cm:property name="jms.receiveTimeout" value="1000"/>
+    </cm:default-properties>
+  </cm:property-placeholder>
 
-  <camelContext xmlns="http://camel.apache.org/schema/spring">
-    <!-- TODO get destination from property ??? -->
+  <camelContext xmlns="http://camel.apache.org/schema/blueprint">
     <route>
-      <from uri="activemq:queue:inputQueue"/>
+      <from uri="activemq:queue:{{jms.inputDestination}}"/>
       <bean ref="maths_operations" method="Factorial"/>
-      <to uri="activemq:queue:outputQueue"/>
+      <to uri="activemq:queue:{{jms.outputDestination}}"/>
     </route>
   </camelContext>
 
@@ -47,9 +49,9 @@
   </bean>
 
   <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
-    <constructor-arg>
+    <argument>
       <bean class="my.test.calc_bundle.calculator.CachedFactorialCalculator"/>
-    </constructor-arg>
+    </argument>
   </bean>
 
-</beans>
+</blueprint>
