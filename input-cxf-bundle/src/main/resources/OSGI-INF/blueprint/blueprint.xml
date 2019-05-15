@@ -26,6 +26,7 @@
 
   <bean id="serviceFactory" class="org.apache.cxf.jaxrs.blueprint.BlueprintResourceFactory">
     <argument value="factorialService"/>
+    <property name="blueprintContainer" ref="blueprintContainer"/> <!-- Ё%$&*%*(^&)^&*() -->
   </bean>
 
   <bean id="factorialService" class="my.test.input_cxf_bundle.FactorialService" scope="prototype">
