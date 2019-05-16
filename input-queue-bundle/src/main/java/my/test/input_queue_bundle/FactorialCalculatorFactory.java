@@ -5,7 +5,10 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+import java.util.logging.Logger;
+
 public class FactorialCalculatorFactory implements BundleActivator {
+  private static final Logger LOGGER = Logger.getLogger(FactorialCalculatorFactory.class.getName());
   private static BundleContext bundleContext;
   private static ServiceReference serviceReference;
   private volatile static FactorialCalculator INSTANCE = null;
@@ -19,6 +22,7 @@ public class FactorialCalculatorFactory implements BundleActivator {
           INSTANCE = (FactorialCalculator) bundleContext.getService(serviceReference);
         if (INSTANCE == null)
           throw new RuntimeException("FactorialCalculator service not registered.");
+        LOGGER.info("Received instance of " + INSTANCE.getClass().getName());
       }
     return INSTANCE;
   }
