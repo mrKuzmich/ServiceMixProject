@@ -17,7 +17,8 @@ public class MathsOperations {
       LOGGER.info("Outgoing response: " + response);
       return response;
     } catch (Exception e) {
-      return "Calculate Factorial exception: " + e.getClass().getCanonicalName() + ": " + e.getMessage();
+      return e;
+      // return "Calculate Factorial exception: " + e.getClass().getCanonicalName() + ": " + e.getMessage();
     }
   }
 }
