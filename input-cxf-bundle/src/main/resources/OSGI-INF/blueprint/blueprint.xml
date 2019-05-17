@@ -22,6 +22,9 @@
     <jaxrs:serviceFactories>
       <ref component-id="serviceFactory"/>
     </jaxrs:serviceFactories>
+    <jaxrs:providers>
+      <ref component-id="exceptionMapper"/>
+    </jaxrs:providers>
   </jaxrs:server>
 
   <bean id="serviceFactory" class="org.apache.cxf.jaxrs.blueprint.BlueprintResourceFactory">
@@ -58,5 +61,8 @@
     <property name="connectionFactory" ref="jmsConnectionFactory"/>
   </bean>
 
+  <bean id="exceptionMapper" class="org.apache.cxf.jaxrs.impl.WebApplicationExceptionMapper">
+    <property name="addMessageToResponse" value="true"/>
+  </bean>
 
 </blueprint>

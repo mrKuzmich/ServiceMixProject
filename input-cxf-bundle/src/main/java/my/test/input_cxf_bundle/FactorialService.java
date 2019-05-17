@@ -3,9 +3,7 @@ package my.test.input_cxf_bundle;
 import org.springframework.jms.core.JmsTemplate;
 
 import javax.jms.*;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
@@ -22,18 +20,14 @@ public class FactorialService {
   public Response getFactorial(@PathParam("n") String strN) { // todo javax.validation
     try {
       LOGGER.info(String.format("Request: getFactorial(%s)", strN));
-        String msgLabel = sendRequestToQueue(strN);
-        final String result = getResponseFromQueue(msgLabel);
+      String msgLabel = sendRequestToQueue(strN);
+      final String result = getResponseFromQueue(msgLabel);
       LOGGER.info(String.format("Response: %s! = %s", strN, result));
       return Response.ok(result).build();
+    } catch (WebApplicationException e) {
+      throw e;
     } catch (Exception e) {
-      final String errorMsg = String.format("getFactorial error: %s: %s",
-              e.getClass().getCanonicalName(), e.getMessage());
-      LOGGER.info("Error: " + errorMsg);
-      return Response
-              .status(Response.Status.BAD_REQUEST)
-              .entity(errorMsg)
-              .build();
+      throw new WebApplicationException(e);
     }
   }
 
@@ -53,8 +47,27 @@ public class FactorialService {
   private String getResponseFromQueue(String msgLabel) throws JMSException, TimeoutException {
     final Message response = getReceiveJmsTemplate()
             .receiveSelected("JMSCorrelationID='" + msgLabel + "'");
-    if (response == null) throw new TimeoutException("Calculator not response.");
-    return ((TextMessage) response).getText();
+    if (response == null) throw new WebApplicationException("Calculator not response.");
+    return processResponse(response);
+  }
+
+  private String processResponse(Object message) {
+    try {
+      // possible exception
+      if (message instanceof ObjectMessage && ((ObjectMessage) message).getObject() instanceof Throwable) {
+        final Throwable throwable = (Throwable) ((ObjectMessage) message).getObject();
+        if (throwable instanceof ArithmeticException)
+          throw new BadRequestException("Request parameters error", throwable);
+        else
+          throw new InternalServerErrorException("The processing queue returned an exception.",
+                  (Throwable) ((ObjectMessage) message).getObject());
+      } else if (message instanceof TextMessage) // todo split processing
+        return ((TextMessage) message).getText();
+      else
+        throw new InternalServerErrorException("Undefined returned response");
+    } catch (JMSException e) {
+      throw new InternalServerErrorException("Error processing response", e);
+    }
   }
 
   public JmsTemplate getSendJmsTemplate() {
