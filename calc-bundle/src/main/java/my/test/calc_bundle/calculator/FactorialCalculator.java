@@ -1,8 +1,10 @@
 package my.test.calc_bundle.calculator;
 
 import java.math.BigInteger;
-import java.util.function.Function;
 
-public interface FactorialCalculator extends Function<Integer, BigInteger> {
+@FunctionalInterface
+public interface FactorialCalculator {
+
+  BigInteger apply(Integer integer);
 
 }

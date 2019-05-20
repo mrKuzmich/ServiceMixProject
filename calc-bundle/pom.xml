@@ -41,11 +41,6 @@
       <version>2.23.2</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.aries.blueprint</groupId>
-      <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
-      <version>1.0.1</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -60,7 +55,6 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Version>${project.version}</Bundle-Version>
-            <Bundle-Activator>my.test.calc_bundle.Activator</Bundle-Activator>
             <Export-Package>my.test.calc_bundle.calculator;version=${project.version}</Export-Package>
             <Import-Package>*</Import-Package>
           </instructions>

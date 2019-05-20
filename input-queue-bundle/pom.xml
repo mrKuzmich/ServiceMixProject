@@ -47,7 +47,6 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Version>${project.version}</Bundle-Version>
-            <Bundle-Activator>my.test.input_queue_bundle.FactorialCalculatorFactory</Bundle-Activator>
             <Import-Package>*</Import-Package>
             <Private-Package>my.test.input_queue_bundle</Private-Package>
           </instructions>

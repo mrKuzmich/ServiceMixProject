@@ -32,12 +32,12 @@ public class FactorialCalculatorTest extends Assert {
     assertEquals(BigInteger.valueOf(3628800L), cachedCalculator.apply(10));
   }
 
-  @Test(expected = ArithmeticException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void simpleFactorialTestException() {
     simpleCalculator.apply(-1);
   }
 
-  @Test(expected = ArithmeticException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void cachedFactorialTestException() {
     cachedCalculator.apply(-1);
   }

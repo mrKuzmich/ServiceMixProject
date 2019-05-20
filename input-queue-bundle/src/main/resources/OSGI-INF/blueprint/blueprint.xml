@@ -48,6 +48,10 @@
     <property name="configuration" ref="jmsConfig"/>
   </bean>
 
-  <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations"/>
+  <reference interface="my.test.calc_bundle.calculator.FactorialCalculator" id="calculatorService"/>
+
+  <bean id="maths_operations" class="my.test.input_queue_bundle.MathsOperations">
+    <property name="calculator" ref="calculatorService"/>
+  </bean>
 
 </blueprint>
