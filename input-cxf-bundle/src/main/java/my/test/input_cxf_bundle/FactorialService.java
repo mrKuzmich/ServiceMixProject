@@ -5,6 +5,7 @@ import org.springframework.jms.core.JmsTemplate;
 import javax.jms.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.IllegalFormatException;
 import java.util.logging.Logger;
 
 @Path("/maths/")
@@ -56,7 +57,7 @@ public class FactorialService {
       // possible exception
       if (message instanceof ObjectMessage && ((ObjectMessage) message).getObject() instanceof Throwable) {
         final Throwable throwable = (Throwable) ((ObjectMessage) message).getObject();
-        if (throwable instanceof ArithmeticException)
+        if (throwable instanceof IllegalArgumentException)
           throw new BadRequestException("Request parameters error", throwable);
         else
           throw new InternalServerErrorException("The processing queue returned an exception.",
